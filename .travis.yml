@@ -9,14 +9,14 @@ script:
   - docker run -e CI=true slimoualha/react-test npm test
 
 after_sucess:
-  - docker build -t slimoualha/multi-client ./client
   - docker build -t slimoualha/multi-nginx ./nginx
+  - docker build -t slimoualha/multi-client ./client
   - docker build -t slimoualha/multi-server ./server
   - docker build -t slimoualha/multi-worker ./worker
   # log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # take those images and push them to docker hubb
-  - docker push slimoualha/multi-client
   - docker push slimoualha/multi-nginx
+  - docker push slimoualha/multi-client
   - docker push slimoualha/multi-server
   - docker push slimoualha/multi-worker
